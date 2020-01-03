@@ -1,5 +1,13 @@
 
+# Installing `nvm` (do this once per server)
 
+# Clone your app
+
+# Configuring `nginx`
+
+# Configuring `pm2`
+
+# Testing by rebooting
 
 ----
 

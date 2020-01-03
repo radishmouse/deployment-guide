@@ -1,5 +1,48 @@
 
+
+
 - [Node.js on Ubuntu](node-js.md)
+
+
+-----
+
+# Creating and configuring an EC2 instance
+
+- log in at https://aws.amazon.com/console/
+- Go to Services -> EC2
+- Launch a new instance
+- Choose (free tier) Ubuntu 18.04 LTS
+- Review & launch
+- Configure security group
+    - add rule
+    - choose HTTP
+- Launch
+- Create new keypair
+    - name with current date, download key pair
+- Launch for real!
+
+# Logging in with SSH
+
+```sh
+mv ~/Downloads/*.pem ~/.ssh/
+```
+
+## Creating an alias
+
+- Find your instance information
+- Click blue square, click "connect"
+- Copy the connection string
+- `code ~/.bashrc` or `code ~/.bash_profile`
+    - Paste and replace the quotes
+
+
+# Installing `git` and `nginx`
+
+```sh
+sudo apt update && sudo apt upgrade -y
+```
+
+# Creating an SSH key for use with Github
 
 
 -----
@@ -91,3 +134,5 @@ It's a terminal-based text editor.
 ## What's `pm2`?
 
 It runs your Node.js programs for you when the server starts up.
+
+
