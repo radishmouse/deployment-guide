@@ -49,7 +49,7 @@ You can buy a domain name (like `bestworstcat.com`), and then assign it to your 
 
 ### How would you run multiple node apps on your AWS server?
 
-You can assign more than one domain name to a server. And in fact, you can buy one domain (`bestworstcat.com`) and configure it to have "subdomains", such as `www.bestworstcat.com`, `api.bestworstcat.com`, `lol.bestworstcat.com`.
+You can assign more than one domain name to a server. And in fact, you can buy one domain (`bestworstcat.com`) and configure it to have "subdomains", such as `www.bestworstcat.com`, `api.bestworstcat.com`, `lollolol.bestworstcat.com`.
 
 Each of those domain names can be associated with different sites and apps running on the same server.
 
