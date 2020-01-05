@@ -6,28 +6,29 @@
 
 -----
 
-# Creating and configuring an EC2 instance
+# Creating and configuring an EC2 instance (aka server) from the management console web page
 
 - log in at https://aws.amazon.com/console/
 - Go to Services -> EC2
 - Launch a new instance
 - Choose (free tier) Ubuntu 18.04 LTS
 - Review & launch
-- Configure security group
+- Configure security group ("punching a hole in the firewall")
     - add rule
     - choose HTTP
 - Launch
-- Create new keypair
+- Create new keypair 
     - name with current date, download key pair
 - Launch for real!
 
 # Logging in with SSH
 
 ```sh
-mv ~/Downloads/*.pem ~/.ssh/
+mv ~/Downloads/*.pem ~/.ssh/ # move the downloaded pem to your .ssh folder
+chmod 600 ~/.ssh/*.pem       # lock down permissions
 ```
 
-## Creating an alias
+## Creating an alias (for convenience)
 
 - Find your instance information
 - Click blue square, click "connect"
@@ -35,14 +36,26 @@ mv ~/Downloads/*.pem ~/.ssh/
 - `code ~/.bashrc` or `code ~/.bash_profile`
     - Paste and replace the quotes
 
+## Logging in for the first time
 
-# Installing `git` and `nginx`
+- Open new terminal tab or window
+- type name of alias and press enter
+- when prompted, type `yes` and press enter
+
+# Update system software
 
 ```sh
 sudo apt update && sudo apt upgrade -y
+sudo reboot
 ```
 
+After a minute or two, run your alias again to log back in.
+
 # Creating an SSH key for use with Github
+
+```sh
+ssh-keygen -t ed25519
+```
 
 
 -----

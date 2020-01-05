@@ -1,7 +1,18 @@
 
 # Installing `nvm` (do this once per server)
 
+
+```sh
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
+```
+
+- copy/paste the command to enable the 
+
+
 # Clone your app
+
+- find a Node.js repo
+- get the clone address, making sure that it's "clone with ssh"
 
 # Configuring `nginx`
 
