@@ -278,4 +278,8 @@ Enter a title for your key (using the same name as the key itself) and paste in 
 ![](/images/29-add-key-github-4.png)
 
 
+Then click the "Add SSH key" button. You should see your new key in the list of keys:
+
+![](/images/29-add-key-github-5.png)
+
 Now, you can clone and run Node.js applications on your server.
