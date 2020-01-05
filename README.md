@@ -1,151 +1,86 @@
 
+# Walkthrough
+
+- [How to create an EC2 Instance](ec2-general-setup.md)
+- [How to deploy a simple Node.js project](deploy-node-project.md)
 
 
-- [Node.js on Ubuntu](node-js.md)
+---
 
+Before staring, make sure you sign up for a free AWS account.
+
+# The goal
+
+We need to deploy a Node.js application so that it is publicly accessible on the internet. To do so, we'll set up a Linux server on AWS.
+
+# Terminology
+
+## AWS
+
+Amazon rents access to its server ecosystem. This ecosystem is known as the Amazon Web Services. 
+
+There are dozens of kinds of services available on AWS, ranging from storage to databases to virtual computers.
+
+## EC2
+
+The AWS service that provides virtual computers is the Elastic Compute Cloud, or EC2.
+
+## instance
+
+Amazon refers to a single EC2 server as an instance.
 
 -----
 
-# Creating and configuring an EC2 instance (aka server) from the management console web page
+# What and Why
 
-- log in at https://aws.amazon.com/console/
-- Go to Services -> EC2
-- Launch a new instance
-- Choose (free tier) Ubuntu 18.04 LTS
-- Review & launch
-- Configure security group ("punching a hole in the firewall")
-    - add rule
-    - choose HTTP
-- Launch
-- Create new keypair 
-    - name with current date, download key pair
-- Launch for real!
+## Overview
 
-# Logging in with SSH
+### How do you get a Node.js server running on your computer?
+
+To run your Node.js server code locally, you needed:
+
+- A terminal running bash
+- Node.js (installed via nvm)
+- The code (cloned from github)
+
+Bash comes pre-installed, but to [install nvm](https://github.com/nvm-sh/nvm#install--update-script), you ran the following command:
 
 ```sh
-mv ~/Downloads/*.pem ~/.ssh/ # move the downloaded pem to your .ssh folder
-chmod 600 ~/.ssh/*.pem       # lock down permissions
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
 ```
 
-## Creating an alias (for convenience)
-
-- Find your instance information
-- Click blue square, click "connect"
-- Copy the connection string
-- `code ~/.bashrc` or `code ~/.bash_profile`
-    - Paste and replace the quotes
-
-## Logging in for the first time
-
-- Open new terminal tab or window
-- type name of alias and press enter
-- when prompted, type `yes` and press enter
-
-# Update system software
-
-```sh
-sudo apt update && sudo apt upgrade -y
-sudo reboot
-```
-
-After a minute or two, run your alias again to log back in.
-
-# Creating an SSH key for use with Github
+To access your code, you needed to create an SSH key:
 
 ```sh
 ssh-keygen -t ed25519
 ```
 
+As a student, it's ok not to use a passphrase. As an employee of a company, you will *always* use a passphrase.
 
------
+Take the defaults and then run the following to get the public version of the key. This is what you will add to your Github profile under [`Settings -> SSH and GPG Keys`](https://github.com/settings/keys)
 
-# Q & A
+```sh
+cat ~/.ssh/id_ed25519.pub
+```
 
-## What's AWS?
+### How would you keep a program running 24x7?
 
-- Amazon
-- Web
-- Services
+Real websites are running continuously. The code running on your laptop will be stopped any time you put your computer to sleep.
 
-It's Amazon.com's server ecosystem that they sell as a service.
+To keep your app running, you need to run it on a computer that never shuts off. These are commonly known as "servers" (because their sole purpose is to run server programs). 
 
-## Why do we use AWS?
+This is why we deploy our code to Linux servers on AWS. Though there are other options, this combination is one of the most popular in the industry.
 
-It looks great on your resume.
+### How would you make your app available to other people?
 
-And it's similar to Google Cloud and Microsoft Azure.
+You can buy a domain name (like `bestworstcat.com`), and then assign it to your server. You can then tell people to visit `http://bestworstcat.com`, to access your app.
 
-## What is EC2?
+### How would you run multiple node apps on your AWS server?
 
-Elastic
-Compute
-Cloud
+You can assign more than one domain name to a server. And in fact, you can buy one domain (`bestworstcat.com`) and configure it to have "subdomains", such as `www.bestworstcat.com`, `api.bestworstcat.com`, `lollolol.bestworstcat.com`.
 
-It's a "virtual" computer - it's a program that thinks it's a whole computer.
+Each of those domain names can be associated with different sites and apps running on the same server.
 
-## How is that different from S3?
+For this, you need a program that can "proxy" requests to different Node.js programs based on the domain name (or subdomain) being requested.
 
-It's a program that thinks it's a thumb drive.
-
-There's no terminal, and no fun.
-
-## What's Linux?
-
-It's the operating system that runs most servers on the internet.
-
-## What's an Operating System?
-
-It's a program that can run other programs.
-
-It can manage the hardware in addition to running programs.
-
-## Why do we use Linux?
-
-Because it looks good on your resume.
-
-Also, it's fun.
-
-## What's Ubuntu?
-
-It's a "flavor" of Linux.
-
-## What's a firewall?
-
-It's a program that protects your network ports from h4x0rz.
-
-## What's an instance?
-
-This is a single EC2 server.
-
-## How do we access our instance?
-
-We'll use ssh to log in remotely.
-
-## What's SSH?
-
-It lets you log in to a remote computer and it gives you a bash shell.
-
-## What's `sudo`?
-
-It lets you run programs as the administrator.
-
-By default, the version of Ubuntu Linux on AWS is preconfigured to let you use `sudo`.
-
-## What's `apt`?
-
-It gives you access to something like an "app store", but for an Ubuntu Linux computer.
-
-## What's `nginx`?
-
-It's "air traffic control" for when you want to run multiple sites (or Node.js apps) on a single server.
-
-## What's `nano`?
-
-It's a terminal-based text editor.
-
-## What's `pm2`?
-
-It runs your Node.js programs for you when the server starts up.
-
-
+The most popular and flexible program that can do this is `nginx`.
