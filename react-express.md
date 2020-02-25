@@ -102,6 +102,35 @@ cd capstone-backend
 nano .env
 ```
 
+## Prefix your Express API
+
+- put `/api` at the beginning of each your route paths
+- Or: use an `express.Router` and give it the `/api` prefix
+
+## Set up express to serve static files
+
+Use the static middleware:
+
+```
+app.use(express.static('public'));
+```
+
+Add this as the *last* route of your app (or `express.Router`):
+
+```
+// Handles any requests that don't match previous ones
+app.get('*', (req,res) =>{
+    res.sendFile(path.join(__dirname + '/public/index.html'));
+});
+```
+
+### Alternatively, set up `nginx` to serve the contents of `public` for you.
+
+
+
+```
+
+
 # Deploying
 
 ## Build the React app (on your machine, *not on EC2*)
